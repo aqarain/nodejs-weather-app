@@ -7,15 +7,13 @@ const forecast = (lon, lat, cb) => {
     .get(
       `http://api.weatherstack.com/current?access_key=${WEATHER_STACK_API_KEY}&query=${lat},${lon}`
     )
-    .then(response => {
-      if ("error" in response.data) {
-        cb(response.data.error.info);
+    .then(({ data }) => {
+      if ("error" in data) {
+        cb(data.error.info);
       } else {
         const {
-          temperature,
-          feelslike,
-          weather_descriptions
-        } = response.data.current;
+          current: { temperature, feelslike, weather_descriptions }
+        } = data;
         cb(
           null,
           `${weather_descriptions}. It is currently ${temperature} degrees out. It feels like ${feelslike} degrees out.`

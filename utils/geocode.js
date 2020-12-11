@@ -8,15 +8,22 @@ const geocode = (address, cb) => {
     .get(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${MAP_BOX_API_KEY}&limit=1`
     )
-    .then(response => {
-      if (response.data.features.length === 0) {
+    .then(({ data }) => {
+      if (data.features.length === 0) {
         cb("Unable to find location. Try another search.");
       } else {
-        const [{ center, place_name }] = response.data.features;
+        const {
+          features: [
+            {
+              center: [longitude, latitude],
+              place_name: location
+            }
+          ]
+        } = data;
         cb(null, {
-          latitude: center[1],
-          longitude: center[0],
-          location: place_name
+          latitude,
+          longitude,
+          location
         });
       }
     })
