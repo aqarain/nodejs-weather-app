@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/aqarain/nodejs-weather-app/issues"
   },
-  "homepage": "https://github.com/aqarain/nodejs-weather-app#readme"
+  "homepage": "https://github.com/aqarain/nodejs-weather-app#readme",
+  "dependencies": {
+    "axios": "^0.21.0"
+  }
 }
